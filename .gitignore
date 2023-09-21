@@ -131,3 +131,7 @@ dist
 
 # bin
 bin
+
+# prisma
+prisma/migrations
+prisma/*.db*

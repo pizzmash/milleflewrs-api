@@ -9,3 +9,63 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Cocktail {
+  id Int @id @default(autoincrement())
+  name String
+  description String?
+  alcohol String?
+  glass Glass @relation(fields: [glassId], references: [id])
+  glassId Int
+  technique Technique @relation(fields: [techniqueId], references: [id])
+  techniqueId Int
+  image String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  cocktailDrink CocktailDrink[]
+}
+
+model Glass {
+  id Int @id @default(autoincrement())
+  name String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  cocktail Cocktail[]
+}
+
+model Technique {
+  id Int @id @default(autoincrement())
+  name String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  cocktail Cocktail[]
+}
+
+model Drink {
+  id Int @id @default(autoincrement())
+  name String
+  drinkKind DrinkKind @relation(fields: [kindId], references: [id])
+  kindId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  cocktailDrink CocktailDrink[]
+}
+
+model DrinkKind {
+  id Int @id @default(autoincrement())
+  name String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  drink Drink[]
+}
+
+model CocktailDrink {
+  id Int @id @default(autoincrement())
+  cocktail Cocktail @relation(fields: [cocktailId], references: [id])
+  cocktailId Int
+  drink Drink @relation(fields: [drinkId], references: [id])
+  drinkId Int
+  quantity String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
