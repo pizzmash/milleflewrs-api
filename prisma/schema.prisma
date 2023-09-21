@@ -44,8 +44,8 @@ model Technique {
 model Drink {
   id Int @id @default(autoincrement())
   name String
-  drinkKind DrinkKind @relation(fields: [kindId], references: [id])
-  kindId Int
+  drinkKind DrinkKind? @relation(fields: [kindId], references: [id])
+  kindId Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   cocktailDrink CocktailDrink[]
