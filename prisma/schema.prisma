@@ -49,6 +49,7 @@ model Drink {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   cocktailDrink CocktailDrink[]
+  stock Stock[]
 }
 
 model DrinkKind {
@@ -66,6 +67,14 @@ model CocktailDrink {
   drink Drink @relation(fields: [drinkId], references: [id])
   drinkId Int
   quantity String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Stock {
+  drink Drink @relation(fields: [drinkId], references: [id])
+  drinkId Int @id
+  deleteFlag Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
